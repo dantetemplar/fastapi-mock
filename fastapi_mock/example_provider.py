@@ -129,6 +129,9 @@ class ExampleProvider:
         return example
 
     def _resolve_for_field_info(self, field_info: FieldInfo):
+        if field_info.json_schema_extra and "example" in field_info.json_schema_extra:
+            return field_info.json_schema_extra["example"]
+
         if field_info.examples:
             return choice(field_info.examples)
         elif (
