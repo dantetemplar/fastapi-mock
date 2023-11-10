@@ -8,8 +8,7 @@ from starlette.middleware.base import (
     DispatchFunction,
 )
 from starlette.requests import Request
-from starlette.responses import JSONResponse, Response
-from starlette.status import HTTP_501_NOT_IMPLEMENTED
+from starlette.responses import JSONResponse
 from starlette.types import ASGIApp
 
 from fastapi_mock.exceptions import MockException
@@ -44,4 +43,4 @@ class MockMiddleware(BaseHTTPMiddleware):
                 example = self.example_provider.resolve(e.response_model)
                 return JSONResponse(content=example, status_code=e.status_code)
             except NotImplementedError:
-                return Response(status_code=HTTP_501_NOT_IMPLEMENTED)
+                return e.get_failing_response()
