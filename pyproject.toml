@@ -1,16 +1,11 @@
-[project]
-
-
-
 [tool.poetry]
 name = "fastapi-mock"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Ruslan Belckov <ruslan.belckov@yandex.ru>"]
-description = "A plugin for FastAPI that allows you to create mock endpoints quickly and easily."
+description = "A middleware for FastAPI that allows you to create mock endpoints quickly and easily."
 readme = "README.md"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 packages = [{ include = "fastapi_mock"}]
@@ -18,8 +13,6 @@ packages = [{ include = "fastapi_mock"}]
 [tool.poetry.urls]
 "Homepage" = "https://github.com/dantetemplar/fastapi-mock"
 "Bug Tracker" = "https://github.com/dantetemplar/fastapi-mock/issues"
-
-
 
 [tool.poetry.dependencies]
 python = "^3.11"
