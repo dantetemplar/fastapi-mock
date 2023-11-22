@@ -23,14 +23,14 @@ class MockMiddleware(BaseHTTPMiddleware):
     """
 
     example_provider: ExampleProvider
+    app: ASGIApp
 
     def __init__(
         self,
         app: ASGIApp,
-        dispatch: typing.Optional[DispatchFunction] = None,
         example_provider: ExampleProvider = None,
     ) -> None:
-        super().__init__(app, dispatch)
+        super().__init__(app)
         if example_provider is None:
             example_provider = ExampleProvider()
         self.example_provider = example_provider
