@@ -21,6 +21,7 @@ pydantic = "^2"
 
 [tool.poetry.group.test.dependencies]
 uvicorn = "^0.24.0.post1"
+faker = "^20.1.0"
 
 [build-system]
 requires = ["poetry-core"]
