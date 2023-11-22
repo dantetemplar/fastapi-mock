@@ -2,7 +2,7 @@
 name = "fastapi-mock"
 version = "0.3.0"
 authors = ["Ruslan Belckov <ruslan.belckov@yandex.ru>"]
-description = "A middleware for FastAPI that allows you to create mock endpoints quickly and easily."
+description = "A utility for FastAPI that allows you to create mock endpoints quickly and easily."
 readme = "README.md"
 classifiers = [
     "License :: OSI Approved :: MIT License",
