@@ -14,7 +14,7 @@ from pydantic_core import PydanticUndefined
 PROVIDER_TYPE = Callable[[], Any] | Callable[[type], Any] | Any
 
 DEFAULT_PROVIDERS: dict[type, PROVIDER_TYPE] = {
-    bool: lambda: random.getrandbits(1),
+    bool: lambda: bool(random.getrandbits(1)),
     int: lambda: random.randrange(0, 100),
     float: lambda: random.uniform(0, 100),
     str: "Hello, World ❤️",
@@ -27,13 +27,8 @@ class ExampleProvider:
 
     def __init__(
         self,
-        providers: dict[type, PROVIDER_TYPE] | None = None,
+        providers: dict[type, PROVIDER_TYPE],
     ):
-        self._providers = DEFAULT_PROVIDERS.copy()
-
-        if providers is None:
-            providers = dict()
-
         for type_, provider in providers.items():
             self.register_provider(type_, provider)
 
