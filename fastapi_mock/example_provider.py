@@ -14,10 +14,10 @@ from pydantic_core import PydanticUndefined
 PROVIDER_TYPE = Callable[[], Any] | Callable[[type], Any] | Any
 
 DEFAULT_PROVIDERS: dict[type, PROVIDER_TYPE] = {
+    bool: lambda: random.getrandbits(1),
     int: lambda: random.randrange(0, 100),
     float: lambda: random.uniform(0, 100),
     str: "Hello, World ❤️",
-    bool: lambda: random.getrandbits(1),
     Enum: lambda enumeration: choice(list(enumeration.__members__.values())),
 }
 

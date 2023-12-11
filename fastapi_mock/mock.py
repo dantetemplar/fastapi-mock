@@ -101,13 +101,14 @@ class MockUtilities:
 
         for route in self.fastapi_app.routes:
             if isinstance(route, APIRoute):
-                if route.matches(
+                match, scope = route.matches(
                     {
                         "type": "http",
                         "method": request.method,
                         "path": request.url.path,
                     }
-                ):
+                )
+                if match == match.FULL:
                     return route
         return None
 
