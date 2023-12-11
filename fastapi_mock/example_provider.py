@@ -115,7 +115,10 @@ class ExampleProvider:
         json_schema_extra = model.model_config.get("json_schema_extra")
         if json_schema_extra:
             example: dict | None = json_schema_extra.get("example")
-            if example:
+            examples: list[dict] | None = json_schema_extra.get("examples")
+            if example is None and examples is not None:
+                example = choice(examples)
+            if example is not None:
                 return example
         example = dict()
         # Iterate over fields
