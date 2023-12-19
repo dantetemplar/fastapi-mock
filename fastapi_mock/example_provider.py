@@ -27,8 +27,13 @@ class ExampleProvider:
 
     def __init__(
         self,
-        providers: dict[type, PROVIDER_TYPE],
+        providers: dict[type, PROVIDER_TYPE] = None,
     ):
+        self._providers = dict()
+
+        if providers is None:
+            providers = DEFAULT_PROVIDERS.copy()
+
         for type_, provider in providers.items():
             self.register_provider(type_, provider)
 
