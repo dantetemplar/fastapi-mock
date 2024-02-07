@@ -12,6 +12,7 @@ A utility for FastAPI that allows you to create mock endpoints quickly and easil
     - [Examples in JSON Schema](#examples-in-json-schema)
     - [Field Examples and Defaults](#field-examples-and-defaults)
     - [Custom Provider](#custom-provider)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -91,7 +92,7 @@ class ResponseModel(BaseModel):
 @app.get("/mock-endpoint")
 def mock() -> ResponseModel:
     my_infinity = (
-        1 / 0
+            1 / 0
     )  # raise ZeroDivisionError, then will be converted it to HTTP 500 error
     # in FastAPI ExceptionMiddleware and handled by FastAPI Mock
     return ResponseModel(message=f"UFO is real! and infinity is {my_infinity}")
@@ -254,4 +255,23 @@ Now, if you hit the endpoint `/mock-endpoint`, you'll see the random mock data:
 {
   "message": "Some random sentence from faker."
 }
+```
+
+# Contributing
+
+## Publishing a new version
+
+1. Update the version in `pyproject.toml`
+2. Commit the changes
+3. Create a new tag with the version number (e.g. `git tag -a 0.1.0 -m "0.1.0"`)
+4. Push the tag to the repository (e.g. `git push origin 0.1.0`)
+5. Draft a new release on GitHub with the same version number and the release notes
+6. Setup poetry PyPi configuration (
+   see [tutorial](https://www.digitalocean.com/community/tutorials/how-to-publish-python-packages-to-pypi-using-poetry-on-ubuntu-22-04))
+7. Run `poetry build`
+8. Run `poetry publish`
+9. Attach the built wheel to the release
+10. Publish the release
+11. Done!
+
 ```
