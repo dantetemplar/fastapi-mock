@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-mock"
-version = "0.3.2"
+version = "0.3.3"
 authors = ["Ruslan Belckov <ruslan.belckov@yandex.ru>"]
 description = "A utility for FastAPI that allows you to create mock endpoints quickly and easily."
 readme = "README.md"
@@ -16,7 +16,7 @@ packages = [{ include = "fastapi_mock"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.104.1"
+fastapi = ">=0.104"
 pydantic = "^2"
 
 [tool.poetry.group.test.dependencies]
