@@ -13,6 +13,7 @@ from starlette.status import (
 )
 
 from fastapi_mock.example_provider import ExampleProvider
+from fastapi_mock.logging_ import logger
 
 
 class MockUtilities:
@@ -30,10 +31,10 @@ class MockUtilities:
     return_example_instead_of_501: bool
 
     def __init__(
-        self,
-        fastapi_app: FastAPI,
-        example_provider: ExampleProvider = None,
-        return_example_instead_of_500: bool = False,
+            self,
+            fastapi_app: FastAPI,
+            example_provider: ExampleProvider = None,
+            return_example_instead_of_500: bool = False,
     ) -> None:
         if example_provider is None:
             example_provider = ExampleProvider()
@@ -50,14 +51,17 @@ class MockUtilities:
             )
 
     async def dispatch(self, request: Request, exc: Exception):
-        response = self.generate_mock_response(request)
-        if response is not None:
-            return response
+        try:
+            response = self.generate_mock_response(request)
+            if response is not None:
+                return response
+        except Exception as e:
+            logger.error(f"Error while mocking response: {e}")
         raise exc
 
     def generate_mock_response(
-        self,
-        request: Request,
+            self,
+            request: Request,
     ) -> JSONResponse:
         # PRIORITIES:
         resolved_by_example_from_route: tuple[bool, Any] = (False, None)  # 1
@@ -87,8 +91,8 @@ class MockUtilities:
                 status_code = route.status_code
 
         for is_resolved, content in (
-            resolved_by_example_from_route,
-            resolved_by_response_model_from_route,
+                resolved_by_example_from_route,
+                resolved_by_response_model_from_route,
         ):
             if is_resolved:
                 return JSONResponse(

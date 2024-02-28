@@ -26,8 +26,8 @@ class ExampleProvider:
     _providers: dict[type, PROVIDER_TYPE]
 
     def __init__(
-        self,
-        providers: dict[type, PROVIDER_TYPE] = None,
+            self,
+            providers: dict[type, PROVIDER_TYPE] = None,
     ):
         self._providers = dict()
 
@@ -105,8 +105,8 @@ class ExampleProvider:
             return provider
 
     def _resolve_for_registered_type(
-        self,
-        annotation: type,
+            self,
+            annotation: type,
     ) -> Any:
         for type_, provider in self._providers.items():
             if issubclass(annotation, type_):
@@ -118,6 +118,8 @@ class ExampleProvider:
     def _resolve_for_pydantic_model(self, model: type[BaseModel]) -> dict[str, Any]:
         # Check for example in model_config
         json_schema_extra = model.model_config.get("json_schema_extra")
+        if callable(json_schema_extra):
+            json_schema_extra = json_schema_extra()
         if json_schema_extra:
             example: dict | None = json_schema_extra.get("example")
             examples: list[dict] | None = json_schema_extra.get("examples")
@@ -138,7 +140,7 @@ class ExampleProvider:
         if field_info.examples:
             return choice(field_info.examples)
         elif (
-            default := field_info.get_default(call_default_factory=True)
+                default := field_info.get_default(call_default_factory=True)
         ) is not PydanticUndefined:
             if default is not None:
                 return default
